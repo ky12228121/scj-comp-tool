@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - sudo yum install -y yum-utils
+      - sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - sudo yum -y install terraform
+  pre_build:
+    commands:
+      - cd ./backend/terraform/environments/$ENV
+      - terraform init
+      - terraform apply -auto-approve
+      - cd ../../../../
+  build:
+    commands:
+      - cd ./backend/terraform/environments/$ENV
+      - terraform init
+      - REACT_APP_API_ENDPOINT=$(terraform output --raw api_gateway_url)
+      - REACT_APP_WEBSOCKET_ENDPOINT=$(terraform output --raw websocket_url)
+      - cd ../../../../frontend
+      - npm install
+      - npm run build
+      - aws s3 cp ./build/ s3://scj-comp-tool-$ENV-web-bucket/ --recursive
