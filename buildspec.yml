@@ -8,7 +8,7 @@ phases:
   pre_build:
     commands:
       - cd ./backend/terraform/environments/$ENV
-      - terraform init
+      - terraform init -backend-config="bucket=$BACKEND_BUCKET"
       - terraform apply -auto-approve
       - cd ../../../../
   build:
