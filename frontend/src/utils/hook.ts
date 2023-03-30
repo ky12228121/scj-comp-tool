@@ -2,7 +2,7 @@ import { SelectChangeEvent } from "@mui/material";
 import { useState, useCallback, useRef, useEffect, ChangeEvent } from "react";
 import { useContext } from "react";
 import { SnackbarContext } from "./context";
-import { InputTable } from "./types";
+import { InputTable, SocketMessageType } from "./types";
 
 export const useInput = (initialValue: string) => {
   const [value, setValue] = useState(initialValue);
@@ -32,8 +32,8 @@ export const useSnackbar = () => {
   return useContext(SnackbarContext);
 };
 
-export const useWebSocketCore: () => [InputTable | null, boolean] = () => {
-  const [lastMessage, setLastMessage] = useState<InputTable | null>(null);
+export const useWebSocketCore: () => [SocketMessageType | null, boolean] = () => {
+  const [lastMessage, setLastMessage] = useState<SocketMessageType | null>(null);
   const webSocketRef = useRef<WebSocket | null>(null);
   const connecting = useRef(true);
   useEffect(() => {
@@ -54,7 +54,7 @@ export const useWebSocketCore: () => [InputTable | null, boolean] = () => {
     start();
     connecting.current = false;
     return () => {
-      webSocketRef.current?.close()
+      webSocketRef.current?.close();
       connecting.current = true;
       setLastMessage(null);
     };

@@ -47,3 +47,7 @@ export interface InputTable {
   average: number;
   ttl?: number;
 }
+
+export interface SocketMessageType extends InputTable {
+  action: string;
+}

@@ -111,7 +111,7 @@ const Entry = () => {
             onChange={setInputRoomName}
           />
           <Grid display="flex" justifyContent="flex-end">
-            <Button variant="contained" color="inherit" onClick={handleCloseCreateModal}>
+            <Button variant="outlined" onClick={handleCloseCreateModal}>
               キャンセル
             </Button>
             <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickCreateRoom}>
@@ -141,7 +141,7 @@ const Entry = () => {
             </Select>
           </FormControl>
           <Grid display="flex" justifyContent="flex-end">
-            <Button variant="contained" color="inherit" onClick={handleCloseEntryModal}>
+            <Button variant="outlined" onClick={handleCloseEntryModal}>
               キャンセル
             </Button>
             <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickEntryRoom}>

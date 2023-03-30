@@ -36,14 +36,18 @@ const Check = () => {
       });
   }, []);
   useEffect(() => {
-    if (message) {
-      console.log(typeof message)
+    if (message?.action === "input") {
       const newRecord: RecordType = {
         ...message,
         id: String(message.scj_id),
       };
       delete newRecord.room_id;
       setRecord((prev) => [...prev, newRecord]);
+    } else if (message?.action === "delete") {
+      const newRecord = record.filter((record) => record.id !== String(message.scj_id));
+      setRecord(newRecord);
+    } else if (message?.action === "all_delete") {
+      setRecord([]);
     }
   }, [message]);
   return (
@@ -79,10 +83,10 @@ const Check = () => {
                     <TableCell align="center">{convertTimeIntToTimeString(rec.forth)}</TableCell>
                     <TableCell align="center">{convertTimeIntToTimeString(rec.fifth)}</TableCell>
                     <TableCell align="center" sx={{ backgroundColor: "#F0FFF0" }}>
-                      {rec.best}
+                      {convertTimeIntToTimeString(rec.best)}
                     </TableCell>
                     <TableCell align="center" sx={{ backgroundColor: "#F0FFF0" }}>
-                      {rec.average}
+                      {convertTimeIntToTimeString(rec.average)}
                     </TableCell>
                   </TableRow>
                 ))}

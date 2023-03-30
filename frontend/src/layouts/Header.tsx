@@ -4,12 +4,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Outlet, useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Modal,
-  Paper,
-} from "@mui/material";
+import { Box, Button, Modal, Paper } from "@mui/material";
 import { useState } from "react";
 
 const style = {
@@ -52,13 +47,12 @@ const Header = () => {
                   href="/"
                   sx={{
                     mr: 2,
-                    fontWeight: 700,
-                    letterSpacing: ".3rem",
+                    fontWeight: 500,
                     color: "inherit",
                     textDecoration: "none",
                   }}
                 >
-                  LOGO
+                  SCJ大会ツール
                 </Typography>
               </Grid>
               <Grid display="flex" justifyContent="flex-end" alignItems="center">
@@ -90,7 +84,7 @@ const Header = () => {
             Roomを退出しますか？
           </Typography>
           <Grid display="flex" justifyContent="flex-end">
-            <Button variant="contained" color="inherit" onClick={handleCloseExitModal}>
+            <Button variant="outlined" onClick={handleCloseExitModal}>
               キャンセル
             </Button>
             <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickExitRoom}>
