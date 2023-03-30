@@ -29,7 +29,7 @@ export const convertTimeStringToTimeInt = (timeStr: string, calcTime = false) =>
 export const convertTimeIntToTimeStringForCopy = (timeInt: number) => {
   if (timeInt < 0) return String(timeInt);
   const seconds = timeInt / 1000;
-  const formattedSeconds = Math.round(seconds * 100) / 100
+  const formattedSeconds = Math.round(seconds * 100) / 100;
   const s = String(formattedSeconds).split(".")[0].padStart(2, "0");
   const ms = String(formattedSeconds).split(".")[1].padEnd(2, "0");
   return `${s}.${ms}`;
@@ -41,7 +41,9 @@ export const convertTimeIntToTimeString = (timeInt: number, input = false) => {
   let seconds = timeInt / 1000;
   seconds = Math.round(seconds * 100) / 100;
   const min = Math.floor(seconds / 60);
-  const s = String(Math.floor(seconds % 60)).padStart(2, "0");
+  let s = "";
+  if (min === 0) s = String(Math.floor(seconds % 60));
+  else s = String(Math.floor(seconds % 60)).padStart(2, "0");
   const ms = String(seconds).split(".")[1].padEnd(2, "0");
   let minString = "";
   if (min !== 0) minString = `${min}:`;

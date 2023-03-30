@@ -21,7 +21,19 @@ import {
 } from "../utils/util";
 import axios from "axios";
 import { useInput, useSnackbar, useSelect } from "../utils/hook";
-import { Modal, Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+  Modal,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } from "../utils/constant";
 const style = {
   position: "absolute" as const,
@@ -50,6 +62,8 @@ const Input = () => {
   const { value: selectEvent, setValue: setSelectEvent } = useSelect("");
   const { value: selectRound, setValue: setSelectRound } = useSelect("");
 
+  const [allDeleteDialogOpen, setAllDeleteDialogOpen] = useState(false);
+
   const scjIdRef = useRef<HTMLInputElement>(null);
   const input1 = useRef<HTMLInputElement>(null);
   const input2 = useRef<HTMLInputElement>(null);
@@ -62,6 +76,7 @@ const Input = () => {
 
   const handleOpenCopyModal = () => setCopyModalOpen(true);
   const handleCloseCopyModal = () => setCopyModalOpen(false);
+  const handleCloseAllDeleteDialog = () => setAllDeleteDialogOpen(false);
   useEffect(() => {
     axios
       .get(
@@ -246,8 +261,10 @@ const Input = () => {
       })
       .catch(() => showSnackbar("Failed!", "error"));
   };
-  const handleClickAllDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleClickAllDelete = () => {
+    setAllDeleteDialogOpen(true);
+  };
+  const allDelete = () => {
     const param = { id_list: record.map((rec) => rec.id) };
     axios
       .post(
@@ -569,7 +586,7 @@ const Input = () => {
             </Grid>
           </Grid>
           <Grid display="flex" justifyContent="flex-end">
-            <Button variant="contained" color="inherit" onClick={handleCloseCopyModal}>
+            <Button variant="outlined" onClick={handleCloseCopyModal}>
               キャンセル
             </Button>
             <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickCopy}>
@@ -578,6 +595,19 @@ const Input = () => {
           </Grid>
         </Paper>
       </Modal>
+      <Dialog open={allDeleteDialogOpen} onClose={handleCloseAllDeleteDialog}>
+        <DialogContent>
+          <DialogContentText>入力した内容がすべて削除されます。元に戻せません。</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseAllDeleteDialog} variant="outlined">
+            キャンセル
+          </Button>
+          <Button onClick={allDelete} variant="contained">
+            削除する
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

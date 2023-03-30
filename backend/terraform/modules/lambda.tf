@@ -87,7 +87,7 @@ module "input_register_func" {
   env = {
     input_table_name   = aws_dynamodb_table.input.id
     session_table_name = aws_dynamodb_table.session.id
-    ws_endpoint = "https://${aws_apigatewayv2_api.this.id}.execute-api.ap-northeast-1.amazonaws.com/${var.env}"
+    ws_endpoint        = "https://${aws_apigatewayv2_api.this.id}.execute-api.ap-northeast-1.amazonaws.com/${var.env}"
   }
 }
 module "input_delete_func" {
@@ -104,7 +104,9 @@ module "input_delete_func" {
   source_code_hash = data.archive_file.input.output_base64sha256
   env_name         = var.env
   env = {
-    input_table_name = aws_dynamodb_table.input.id
+    input_table_name   = aws_dynamodb_table.input.id
+    session_table_name = aws_dynamodb_table.session.id
+    ws_endpoint        = "https://${aws_apigatewayv2_api.this.id}.execute-api.ap-northeast-1.amazonaws.com/${var.env}"
   }
 }
 

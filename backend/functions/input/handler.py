@@ -38,14 +38,14 @@ def input_register(event, _):
     for sesson in session_list["Items"]:
         apigw.post_to_connection(
             ConnectionId=sesson["session_id"],
-            Data=json.dumps(param, default=decimal_serializer),
+            Data=json.dumps({**param, "action": "input"}, default=decimal_serializer),
         )
 
     return create_response(200, "Register success!")
 
 
 def input_delete(event, _):
-    
+
     query_parameter = event["queryStringParameters"]
     if query_parameter is None:
         return create_response(400, "Query parameter is required")
@@ -57,16 +57,32 @@ def input_delete(event, _):
     scj_id = event["queryStringParameters"].get("scj_id")
     if scj_id is None:
         return create_response(400, "scj_id is required")
-    
-    table = dynamodb.Table(os.environ["input_table_name"])
+
+    input_table = dynamodb.Table(os.environ["input_table_name"])
+    session_table = dynamodb.Table(os.environ["session_table_name"])
     if scj_id == "all":
         body = json.loads(event["body"])
         for id in body["id_list"]:
             param = {"room_id": int(room_id), "scj_id": int(id)}
-            table.delete_item(Key=param)
+            input_table.delete_item(Key=param)
     else:
         param = {"room_id": int(room_id), "scj_id": int(scj_id)}
-        table.delete_item(Key=param)
+        input_table.delete_item(Key=param)
+
+    apigw = get_apigw_management_client()
+    session_list = session_table.query(
+        KeyConditionExpression=Key("room_id").eq(int(room_id))
+    )
+    message = {}
+    if scj_id == "all":
+        message["action"] = "all_delete"
+    else:
+        message["action"] = "delete"
+    for sesson in session_list["Items"]:
+        apigw.post_to_connection(
+            ConnectionId=sesson["session_id"],
+            Data=json.dumps({**param, **message}, default=decimal_serializer),
+        )
     return create_response(200, "Delete success!")
 
 
