@@ -4,7 +4,7 @@ import Top from "./pages/Top";
 import Check from "./pages/Check";
 import Input from "./pages/Input";
 import Entry from "./pages/Entry";
-import { WebSocketProvider } from "./utils/provider";
+import { WebSocketProvider } from "./providers/provider";
 
 const App = () => {
   const roomId = sessionStorage.getItem("room_id");

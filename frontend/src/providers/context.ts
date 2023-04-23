@@ -1,6 +1,6 @@
 import { AlertColor } from "@mui/material";
 import React from "react";
-import { SnackbarContextType, SocketMessageType } from "./types";
+import { SnackbarContextType, SocketMessageType } from "../types";
 
 export const SnackbarContext = React.createContext<SnackbarContextType>({
   message: "",

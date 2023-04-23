@@ -2,7 +2,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
-import { StyledButton } from "../components/StyledButton";
+import { StyledButton } from "../components/Button/Button";
 
 const Top = () => {
   const navigate = useNavigate();

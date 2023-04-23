@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { StyledButton } from "../components/StyledButton";
+import { StyledButton } from "../components/Button/Button";
 import Modal from "@mui/material/Modal";
 import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
@@ -10,8 +10,8 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import { InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import axios from "axios";
-import { useInput, useSnackbar } from "../utils/hook";
-import { RoomTable } from "../utils/types";
+import { useInput, useSnackbar } from "../hooks/hook";
+import { RoomTable } from "../types";
 
 const style = {
   position: "absolute" as const,

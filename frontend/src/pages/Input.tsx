@@ -13,14 +13,14 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { RecordType, InputTable } from "../utils/types";
+import { RecordType, InputTable } from "../types";
 import {
   convertTimeStringToTimeInt,
   convertTimeIntToTimeString,
   convertTimeIntToTimeStringForCopy,
 } from "../utils/util";
 import axios from "axios";
-import { useInput, useSnackbar, useSelect } from "../utils/hook";
+import { useInput, useSnackbar, useSelect } from "../hooks/hook";
 import {
   Modal,
   Typography,
@@ -34,7 +34,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } from "../utils/constant";
+import { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } from "../variables/constant";
 const style = {
   position: "absolute" as const,
   top: "50%",

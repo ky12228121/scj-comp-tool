@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { SnackbarContextProvider } from "./utils/provider";
+import { SnackbarContextProvider } from "./providers/provider";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <SnackbarContextProvider>
-        <App />
+      <App />
     </SnackbarContextProvider>
   </React.StrictMode>
 );

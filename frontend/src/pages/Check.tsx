@@ -8,9 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Paper from "@mui/material/Paper";
-import { InputTable, RecordType } from "../utils/types";
+import { InputTable, RecordType } from "../types";
 import axios from "axios";
-import { WebSocketMessageContext } from "../utils/context";
+import { WebSocketMessageContext } from "../providers/context";
 import { convertTimeIntToTimeString } from "../utils/util";
 
 const Check = () => {

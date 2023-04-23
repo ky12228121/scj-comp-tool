@@ -1,9 +1,9 @@
 import React from "react";
 import { SnackbarContext, WebSocketConnectingContext, WebSocketMessageContext } from "./context";
-import { GlobalSnackbar } from "../components/GlobalSnackbar";
-import { SnackbarContextType } from "./types";
+import { GlobalSnackbar } from "../components/Snackbar/Snackbar";
+import { SnackbarContextType } from "../types";
 import { AlertColor } from "@mui/material/Alert";
-import { useWebSocketCore } from "./hook";
+import { useWebSocketCore } from "../hooks/hook";
 
 export const SnackbarContextProvider: React.FC<{
   children: React.ReactNode;
@@ -48,7 +48,9 @@ export const WebSocketProvider: React.FC<{
   const [states, connecting] = useWebSocketCore();
   return (
     <WebSocketMessageContext.Provider value={states}>
-      <WebSocketConnectingContext.Provider value={connecting}>{children}</WebSocketConnectingContext.Provider>
+      <WebSocketConnectingContext.Provider value={connecting}>
+        {children}
+      </WebSocketConnectingContext.Provider>
     </WebSocketMessageContext.Provider>
   );
 };

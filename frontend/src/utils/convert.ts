@@ -1,4 +1,6 @@
-import { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } from "./constant";
+import { constants } from "../variables";
+
+const { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } = constants;
 
 export const convertTimeStringToTimeInt = (timeStr: string, calcTime = false) => {
   let dnf = DNF;
