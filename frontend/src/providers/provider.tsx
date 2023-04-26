@@ -1,18 +1,18 @@
-import React from "react";
-import { SnackbarContext, WebSocketConnectingContext, WebSocketMessageContext } from "./context";
-import { GlobalSnackbar } from "../components/Snackbar/Snackbar";
-import { SnackbarContextType } from "../types";
 import { AlertColor } from "@mui/material/Alert";
-import { useWebSocketCore } from "../hooks/hook";
+import React, { useCallback, useContext, useMemo, useState } from "react";
+import { contexts } from ".";
+import { Snackbar } from "../components/Snackbar";
+import { useWebSocketCore } from "../hooks";
+import { SnackbarContextType } from "../types";
 
 export const SnackbarContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const context: SnackbarContextType = React.useContext(SnackbarContext);
-  const [message, setMessage] = React.useState(context.message);
-  const [color, setColor] = React.useState(context.color);
+  const context: SnackbarContextType = useContext(contexts.SnackbarContext);
+  const [message, setMessage] = useState(context.message);
+  const [color, setColor] = useState(context.color);
 
-  const newContext: SnackbarContextType = React.useMemo(
+  const newContext: SnackbarContextType = useMemo(
     () => ({
       message,
       color,
@@ -25,20 +25,20 @@ export const SnackbarContextProvider: React.FC<{
   );
 
   // スナックバーを閉じるためのハンドラー関数
-  const handleClose = React.useCallback(() => {
+  const handleClose = useCallback(() => {
     setMessage("");
   }, [setMessage]);
 
   return (
-    <SnackbarContext.Provider value={newContext}>
+    <contexts.SnackbarContext.Provider value={newContext}>
       {children}
-      <GlobalSnackbar
+      <Snackbar
         open={newContext.message !== ""}
         message={newContext.message}
         color={newContext.color}
         onClose={handleClose}
       />
-    </SnackbarContext.Provider>
+    </contexts.SnackbarContext.Provider>
   );
 };
 
@@ -47,10 +47,10 @@ export const WebSocketProvider: React.FC<{
 }> = ({ children }) => {
   const [states, connecting] = useWebSocketCore();
   return (
-    <WebSocketMessageContext.Provider value={states}>
-      <WebSocketConnectingContext.Provider value={connecting}>
+    <contexts.WebSocketMessageContext.Provider value={states}>
+      <contexts.WebSocketConnectingContext.Provider value={connecting}>
         {children}
-      </WebSocketConnectingContext.Provider>
-    </WebSocketMessageContext.Provider>
+      </contexts.WebSocketConnectingContext.Provider>
+    </contexts.WebSocketMessageContext.Provider>
   );
 };

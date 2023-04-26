@@ -1,16 +1,21 @@
-import Grid from "@mui/material/Unstable_Grid2";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { StyledButton } from "../components/Button/Button";
-import Modal from "@mui/material/Modal";
-import React, { useEffect, useState } from "react";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import { InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import {
+  Button,
+  Container,
+  FormControl,
+  Unstable_Grid2 as Grid,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
-import { useInput, useSnackbar } from "../hooks/hook";
+import React, { useEffect, useState } from "react";
+import { WideButton } from "../components/WideButton";
+import { useInput, useSnackbar } from "../hooks";
 import { RoomTable } from "../types";
 
 const style = {
@@ -86,14 +91,14 @@ const Entry = () => {
       <Container>
         <Grid container spacing={2}>
           <Grid display="flex" justifyContent="center" xs={6}>
-            <StyledButton variant="outlined" onClick={handleOpenCreateModal}>
+            <WideButton variant="outlined" onClick={handleOpenCreateModal}>
               <Typography variant="h5">Roomを作成する</Typography>
-            </StyledButton>
+            </WideButton>
           </Grid>
           <Grid display="flex" justifyContent="center" xs={6}>
-            <StyledButton variant="outlined" onClick={handleOpenEntryModal}>
+            <WideButton variant="outlined" onClick={handleOpenEntryModal}>
               <Typography variant="h5">Roomに参加する</Typography>
-            </StyledButton>
+            </WideButton>
           </Grid>
         </Grid>
       </Container>

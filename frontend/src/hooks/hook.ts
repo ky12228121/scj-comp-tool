@@ -1,7 +1,6 @@
 import { SelectChangeEvent } from "@mui/material";
-import { useState, useCallback, useRef, useEffect, ChangeEvent } from "react";
-import { useContext } from "react";
-import { SnackbarContext } from "../providers/context";
+import { ChangeEvent, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { contexts } from "../providers";
 import { SocketMessageType } from "../types";
 
 export const useInput = (initialValue: string) => {
@@ -29,7 +28,7 @@ export const useSelect = (initialValue: string) => {
 };
 
 export const useSnackbar = () => {
-  return useContext(SnackbarContext);
+  return useContext(contexts.SnackbarContext);
 };
 
 export const useWebSocketCore: () => [SocketMessageType | null, boolean] = () => {

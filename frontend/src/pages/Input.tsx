@@ -1,40 +1,40 @@
-import { useState, ChangeEvent, KeyboardEvent, useRef, useEffect } from "react";
-import Grid from "@mui/material/Unstable_Grid2";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import TableContainer from "@mui/material/TableContainer";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { RecordType, InputTable } from "../types";
 import {
-  convertTimeStringToTimeInt,
-  convertTimeIntToTimeString,
-  convertTimeIntToTimeStringForCopy,
-} from "../utils/util";
-import axios from "axios";
-import { useInput, useSnackbar, useSelect } from "../hooks/hook";
-import {
-  Modal,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  Button,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  FormControl,
+  Unstable_Grid2 as Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Paper,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } from "../variables/constant";
+import axios from "axios";
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { useInput, useSelect, useSnackbar } from "../hooks";
+import { InputTable, RecordType } from "../types";
+import {
+  convertTimeIntToTimeString,
+  convertTimeIntToTimeStringForCopy,
+  convertTimeStringToTimeInt,
+} from "../utils/convert";
+import { constants } from "../variables";
+
 const style = {
   position: "absolute" as const,
   top: "50%",
@@ -57,12 +57,12 @@ const Input = () => {
   const [value4, setValue4] = useState("");
   const [value5, setValue5] = useState("");
   const [record, setRecord] = useState<RecordType[]>([]);
-  const [copyModalOpen, setCopyModalOpen] = useState(false);
+  const [copyModalOpened, setCopyModalOpened] = useState(false);
   const { value: inputCompId, setValue: setInputCompId } = useInput("");
   const { value: selectEvent, setValue: setSelectEvent } = useSelect("");
   const { value: selectRound, setValue: setSelectRound } = useSelect("");
 
-  const [allDeleteDialogOpen, setAllDeleteDialogOpen] = useState(false);
+  const [allDeleteDialogOpened, setAllDeleteDialogOpened] = useState(false);
 
   const scjIdRef = useRef<HTMLInputElement>(null);
   const input1 = useRef<HTMLInputElement>(null);
@@ -72,11 +72,13 @@ const Input = () => {
   const input5 = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { showSnackbar } = useSnackbar();
+  const { DNF, DNF_FOR_CALC, DNS, DNS_FOR_CALC } = constants;
   const refList = [scjIdRef, input1, input2, input3, input4, input5, buttonRef];
 
-  const handleOpenCopyModal = () => setCopyModalOpen(true);
-  const handleCloseCopyModal = () => setCopyModalOpen(false);
-  const handleCloseAllDeleteDialog = () => setAllDeleteDialogOpen(false);
+  const handleOpenCopyModal = () => setCopyModalOpened(true);
+  const handleCloseCopyModal = () => setCopyModalOpened(false);
+  const handleOpenAllDeleteDialog = () => setAllDeleteDialogOpened(true);
+  const handleCloseAllDeleteDialog = () => setAllDeleteDialogOpened(false);
   useEffect(() => {
     axios
       .get(
@@ -261,9 +263,7 @@ const Input = () => {
       })
       .catch(() => showSnackbar("Failed!", "error"));
   };
-  const handleClickAllDelete = () => {
-    setAllDeleteDialogOpen(true);
-  };
+  const handleClickAllDelete = () => handleOpenAllDeleteDialog();
   const allDelete = () => {
     const param = { id_list: record.map((rec) => rec.id) };
     axios
@@ -275,10 +275,12 @@ const Input = () => {
       )
       .then(() => {
         setRecord([]);
+        handleCloseAllDeleteDialog();
       })
       .catch(() => showSnackbar("Failed!", "error"));
   };
-  const handleClickCopy = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickCopy = () => handleOpenCopyModal();
+  const copy = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     let sortedRecord = [...record]
       .sort((a, b) => a.average - b.average)
@@ -304,7 +306,7 @@ const Input = () => {
     });
     navigator.clipboard.writeText(row.join("\n"));
     showSnackbar("Copied!", "success");
-    setCopyModalOpen(false);
+    setCopyModalOpened(false);
   };
   return (
     <>
@@ -381,7 +383,7 @@ const Input = () => {
               variant="contained"
               sx={{ width: "100%", py: 1 }}
               color="info"
-              onClick={handleOpenCopyModal}
+              onClick={handleClickCopy}
             >
               コピーする
             </Button>
@@ -482,7 +484,7 @@ const Input = () => {
           </Grid>
         </Grid>
       </Container>
-      <Modal open={copyModalOpen} onClose={handleCloseCopyModal}>
+      <Modal open={copyModalOpened} onClose={handleCloseCopyModal}>
         <Paper sx={style}>
           <Typography variant="h6" sx={{ mb: 2 }}>
             必要情報を入力してください
@@ -589,13 +591,13 @@ const Input = () => {
             <Button variant="outlined" onClick={handleCloseCopyModal}>
               キャンセル
             </Button>
-            <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickCopy}>
+            <Button variant="contained" sx={{ ml: 2 }} onClick={copy}>
               コピーする
             </Button>
           </Grid>
         </Paper>
       </Modal>
-      <Dialog open={allDeleteDialogOpen} onClose={handleCloseAllDeleteDialog}>
+      <Dialog open={allDeleteDialogOpened} onClose={handleCloseAllDeleteDialog}>
         <DialogContent>
           <DialogContentText>入力した内容がすべて削除されます。元に戻せません。</DialogContentText>
         </DialogContent>

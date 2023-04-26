@@ -1,7 +1,7 @@
-import MuiButton, { ButtonProps } from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 
-export const Button = (props: ButtonProps) => (
-  <MuiButton
+export const WideButton = (props: ButtonProps) => (
+  <Button
     {...props}
     sx={(theme) => {
       return {
@@ -15,5 +15,5 @@ export const Button = (props: ButtonProps) => (
     }}
   >
     {props.children}
-  </MuiButton>
+  </Button>
 );

@@ -1,8 +1,6 @@
-import Grid from "@mui/material/Unstable_Grid2";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import { Container, Unstable_Grid2 as Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { StyledButton } from "../components/Button/Button";
+import { WideButton } from "../components/WideButton";
 
 const Top = () => {
   const navigate = useNavigate();
@@ -10,14 +8,14 @@ const Top = () => {
     <Container>
       <Grid container spacing={2}>
         <Grid display="flex" justifyContent="center" xs={6}>
-          <StyledButton color="success" variant="outlined" onClick={() => navigate("input")}>
+          <WideButton color="success" variant="outlined" onClick={() => navigate("input")}>
             <Typography variant="h5">記録入力</Typography>
-          </StyledButton>
+          </WideButton>
         </Grid>
         <Grid display="flex" justifyContent="center" xs={6}>
-          <StyledButton color="success" variant="outlined" onClick={() => navigate("check")}>
+          <WideButton color="success" variant="outlined" onClick={() => navigate("check")}>
             <Typography variant="h5">入力確認</Typography>
-          </StyledButton>
+          </WideButton>
         </Grid>
       </Grid>
     </Container>

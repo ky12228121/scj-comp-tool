@@ -42,12 +42,13 @@ export const convertTimeIntToTimeString = (timeInt: number, input = false) => {
   else if (timeInt === DNS) return input ? "-2" : "DNS";
   let seconds = timeInt / 1000;
   seconds = Math.round(seconds * 100) / 100;
-  const min = Math.floor(seconds / 60);
+  const minutes = Math.floor(seconds / 60);
   let s = "";
-  if (min === 0) s = String(Math.floor(seconds % 60));
+  if (minutes === 0) s = String(Math.floor(seconds % 60));
   else s = String(Math.floor(seconds % 60)).padStart(2, "0");
-  const ms = String(seconds).split(".")[1].padEnd(2, "0");
+  let ms = "00";
+  if (String(seconds).includes(".")) ms = String(seconds).split(".")[1].padEnd(2, "0");
   let minString = "";
-  if (min !== 0) minString = `${min}:`;
+  if (minutes !== 0) minString = `${minutes}:`;
   return `${minString}${s}.${ms}`;
 };
