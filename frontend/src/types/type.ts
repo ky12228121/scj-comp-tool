@@ -51,3 +51,9 @@ export interface InputTable {
 export interface SocketMessageType extends InputTable {
   action: string;
 }
+
+export interface StyledModalProps {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}

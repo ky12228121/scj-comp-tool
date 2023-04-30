@@ -5,8 +5,6 @@ import {
   Unstable_Grid2 as Grid,
   InputLabel,
   MenuItem,
-  Modal,
-  Paper,
   Select,
   SelectChangeEvent,
   TextField,
@@ -17,20 +15,7 @@ import React, { useEffect, useState } from "react";
 import { WideButton } from "../components/WideButton";
 import { useInput, useSnackbar } from "../hooks";
 import { RoomTable } from "../types";
-
-const style = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  ":focus-visible": {
-    outline: "none",
-  },
-};
+import { StyledModal } from "../components/StyledModal";
 
 const Entry = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -102,59 +87,55 @@ const Entry = () => {
           </Grid>
         </Grid>
       </Container>
-      <Modal open={createModalOpen} onClose={handleCloseCreateModal}>
-        <Paper sx={style}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Room名を入力してください
-          </Typography>
-          <TextField
-            label="Room名"
-            variant="outlined"
-            fullWidth
-            sx={{ mb: 1 }}
-            value={inputRoomName}
-            onChange={setInputRoomName}
-          />
-          <Grid display="flex" justifyContent="flex-end">
-            <Button variant="outlined" onClick={handleCloseCreateModal}>
-              キャンセル
-            </Button>
-            <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickCreateRoom}>
-              作成
-            </Button>
-          </Grid>
-        </Paper>
-      </Modal>
-      <Modal open={entryModalOpen} onClose={handleCloseEntryModal}>
-        <Paper sx={style}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Roomを選択してください
-          </Typography>
-          <FormControl fullWidth sx={{ mb: 1 }}>
-            <InputLabel id="select-label">Room</InputLabel>
-            <Select
-              labelId="select-label"
-              value={selectRoom}
-              label="Room"
-              onChange={handleChangeRoom}
-            >
-              {roomList.map((room) => (
-                <MenuItem value={room.room_id} key={room.room_id}>
-                  {room.room_name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Grid display="flex" justifyContent="flex-end">
-            <Button variant="outlined" onClick={handleCloseEntryModal}>
-              キャンセル
-            </Button>
-            <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickEntryRoom}>
-              参加
-            </Button>
-          </Grid>
-        </Paper>
-      </Modal>
+      <StyledModal open={createModalOpen} onClose={handleCloseCreateModal}>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Room名を入力してください
+        </Typography>
+        <TextField
+          label="Room名"
+          variant="outlined"
+          fullWidth
+          sx={{ mb: 1 }}
+          value={inputRoomName}
+          onChange={setInputRoomName}
+        />
+        <Grid display="flex" justifyContent="flex-end">
+          <Button variant="outlined" onClick={handleCloseCreateModal}>
+            キャンセル
+          </Button>
+          <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickCreateRoom}>
+            作成
+          </Button>
+        </Grid>
+      </StyledModal>
+      <StyledModal open={entryModalOpen} onClose={handleCloseEntryModal}>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Roomを選択してください
+        </Typography>
+        <FormControl fullWidth sx={{ mb: 1 }}>
+          <InputLabel id="select-label">Room</InputLabel>
+          <Select
+            labelId="select-label"
+            value={selectRoom}
+            label="Room"
+            onChange={handleChangeRoom}
+          >
+            {roomList.map((room) => (
+              <MenuItem value={room.room_id} key={room.room_id}>
+                {room.room_name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Grid display="flex" justifyContent="flex-end">
+          <Button variant="outlined" onClick={handleCloseEntryModal}>
+            キャンセル
+          </Button>
+          <Button variant="contained" sx={{ ml: 2 }} onClick={handleClickEntryRoom}>
+            参加
+          </Button>
+        </Grid>
+      </StyledModal>
     </>
   );
 };

@@ -12,7 +12,6 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
-  Modal,
   Paper,
   Select,
   Table,
@@ -34,20 +33,7 @@ import {
   convertTimeStringToTimeInt,
 } from "../utils/convert";
 import { constants } from "../variables";
-
-const style = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  ":focus-visible": {
-    outline: "none",
-  },
-};
+import { StyledModal } from "../components/StyledModal";
 
 const Input = () => {
   const [scjId, setScjId] = useState("");
@@ -484,119 +470,117 @@ const Input = () => {
           </Grid>
         </Grid>
       </Container>
-      <Modal open={copyModalOpened} onClose={handleCloseCopyModal}>
-        <Paper sx={style}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            必要情報を入力してください
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid xs={2}>
-              <TextField
-                label="大会ID"
-                variant="outlined"
-                sx={{ mb: 1 }}
-                value={inputCompId}
-                onChange={setInputCompId}
-              />
-            </Grid>
-            <Grid xs={5}>
-              <FormControl fullWidth sx={{ mb: 1 }}>
-                <InputLabel id="select-label">イベント</InputLabel>
-                <Select
-                  labelId="select-label"
-                  value={selectEvent}
-                  label="イベント"
-                  onChange={(event) => setSelectEvent(event)}
-                >
-                  <MenuItem value={1} key={1}>
-                    3×3×3
-                  </MenuItem>
-                  <MenuItem value={2} key={2}>
-                    2×2×2
-                  </MenuItem>
-                  <MenuItem value={3} key={3}>
-                    4×4×4
-                  </MenuItem>
-                  <MenuItem value={4} key={4}>
-                    5×5×5
-                  </MenuItem>
-                  <MenuItem value={5} key={5}>
-                    6×6×6
-                  </MenuItem>
-                  <MenuItem value={6} key={6}>
-                    7×7×7
-                  </MenuItem>
-                  <MenuItem value={7} key={7}>
-                    3BLD
-                  </MenuItem>
-                  <MenuItem value={8} key={8}>
-                    FMC
-                  </MenuItem>
-                  <MenuItem value={9} key={9}>
-                    3OH
-                  </MenuItem>
-                  <MenuItem value={10} key={10}>
-                    クロック
-                  </MenuItem>
-                  <MenuItem value={11} key={11}>
-                    メガミンクス
-                  </MenuItem>
-                  <MenuItem value={12} key={12}>
-                    ピラミンクス
-                  </MenuItem>
-                  <MenuItem value={13} key={13}>
-                    スキューブ
-                  </MenuItem>
-                  <MenuItem value={14} key={14}>
-                    スクエア1
-                  </MenuItem>
-                  <MenuItem value={15} key={15}>
-                    4BLD
-                  </MenuItem>
-                  <MenuItem value={16} key={16}>
-                    5BLD
-                  </MenuItem>
-                  <MenuItem value={17} key={17}>
-                    MBLD
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid xs={5}>
-              <FormControl fullWidth sx={{ mb: 1 }}>
-                <InputLabel id="select-label">ラウンド</InputLabel>
-                <Select
-                  labelId="select-label"
-                  value={selectRound}
-                  label="ラウンド"
-                  onChange={(event) => setSelectRound(event)}
-                >
-                  <MenuItem value={1} key={1}>
-                    一回戦
-                  </MenuItem>
-                  <MenuItem value={2} key={2}>
-                    二回戦
-                  </MenuItem>
-                  <MenuItem value={3} key={3}>
-                    準決勝
-                  </MenuItem>
-                  <MenuItem value={4} key={4}>
-                    決勝
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+      <StyledModal open={copyModalOpened} onClose={handleCloseCopyModal}>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          必要情報を入力してください
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid xs={2}>
+            <TextField
+              label="大会ID"
+              variant="outlined"
+              sx={{ mb: 1 }}
+              value={inputCompId}
+              onChange={setInputCompId}
+            />
           </Grid>
-          <Grid display="flex" justifyContent="flex-end">
-            <Button variant="outlined" onClick={handleCloseCopyModal}>
-              キャンセル
-            </Button>
-            <Button variant="contained" sx={{ ml: 2 }} onClick={copy}>
-              コピーする
-            </Button>
+          <Grid xs={5}>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel id="select-label">イベント</InputLabel>
+              <Select
+                labelId="select-label"
+                value={selectEvent}
+                label="イベント"
+                onChange={(event) => setSelectEvent(event)}
+              >
+                <MenuItem value={1} key={1}>
+                  3×3×3
+                </MenuItem>
+                <MenuItem value={2} key={2}>
+                  2×2×2
+                </MenuItem>
+                <MenuItem value={3} key={3}>
+                  4×4×4
+                </MenuItem>
+                <MenuItem value={4} key={4}>
+                  5×5×5
+                </MenuItem>
+                <MenuItem value={5} key={5}>
+                  6×6×6
+                </MenuItem>
+                <MenuItem value={6} key={6}>
+                  7×7×7
+                </MenuItem>
+                <MenuItem value={7} key={7}>
+                  3BLD
+                </MenuItem>
+                <MenuItem value={8} key={8}>
+                  FMC
+                </MenuItem>
+                <MenuItem value={9} key={9}>
+                  3OH
+                </MenuItem>
+                <MenuItem value={10} key={10}>
+                  クロック
+                </MenuItem>
+                <MenuItem value={11} key={11}>
+                  メガミンクス
+                </MenuItem>
+                <MenuItem value={12} key={12}>
+                  ピラミンクス
+                </MenuItem>
+                <MenuItem value={13} key={13}>
+                  スキューブ
+                </MenuItem>
+                <MenuItem value={14} key={14}>
+                  スクエア1
+                </MenuItem>
+                <MenuItem value={15} key={15}>
+                  4BLD
+                </MenuItem>
+                <MenuItem value={16} key={16}>
+                  5BLD
+                </MenuItem>
+                <MenuItem value={17} key={17}>
+                  MBLD
+                </MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
-        </Paper>
-      </Modal>
+          <Grid xs={5}>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel id="select-label">ラウンド</InputLabel>
+              <Select
+                labelId="select-label"
+                value={selectRound}
+                label="ラウンド"
+                onChange={(event) => setSelectRound(event)}
+              >
+                <MenuItem value={1} key={1}>
+                  一回戦
+                </MenuItem>
+                <MenuItem value={2} key={2}>
+                  二回戦
+                </MenuItem>
+                <MenuItem value={3} key={3}>
+                  準決勝
+                </MenuItem>
+                <MenuItem value={4} key={4}>
+                  決勝
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <Grid display="flex" justifyContent="flex-end">
+          <Button variant="outlined" onClick={handleCloseCopyModal}>
+            キャンセル
+          </Button>
+          <Button variant="contained" sx={{ ml: 2 }} onClick={copy}>
+            コピーする
+          </Button>
+        </Grid>
+      </StyledModal>
       <Dialog open={allDeleteDialogOpened} onClose={handleCloseAllDeleteDialog}>
         <DialogContent>
           <DialogContentText>入力した内容がすべて削除されます。元に戻せません。</DialogContentText>
