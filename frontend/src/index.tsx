@@ -1,16 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { SnackbarContextProvider } from "./utils/provider";
+import { providers } from "./providers";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <SnackbarContextProvider>
-        <App />
-    </SnackbarContextProvider>
+    <providers.SnackbarContextProvider>
+      <RouterProvider router={router} />
+    </providers.SnackbarContextProvider>
   </React.StrictMode>
 );
 
