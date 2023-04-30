@@ -1,20 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import Grid from "@mui/material/Unstable_Grid2";
-import Container from "@mui/material/Container";
-import TableContainer from "@mui/material/TableContainer";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import Paper from "@mui/material/Paper";
-import { InputTable, RecordType } from "../utils/types";
+import {
+  Container,
+  Unstable_Grid2 as Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import axios from "axios";
-import { WebSocketMessageContext } from "../utils/context";
-import { convertTimeIntToTimeString } from "../utils/util";
+import { useContext, useEffect, useState } from "react";
+import { contexts } from "../providers";
+import { InputTable, RecordType } from "../types";
+import { convertTimeIntToTimeString } from "../utils/convert";
 
 const Check = () => {
-  const message = useContext(WebSocketMessageContext);
+  const message = useContext(contexts.WebSocketMessageContext);
   const [record, setRecord] = useState<RecordType[]>([]);
   useEffect(() => {
     axios

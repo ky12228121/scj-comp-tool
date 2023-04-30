@@ -1,11 +1,16 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Unstable_Grid2";
-import { Outlet, useNavigate } from "react-router-dom";
-import { Box, Button, Modal, Paper } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Unstable_Grid2 as Grid,
+  Modal,
+  Paper,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as const,

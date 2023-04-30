@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from "@mui/material/Button";
 
-export const StyledButton = (props: ButtonProps) => (
+export const WideButton = (props: ButtonProps) => (
   <Button
     {...props}
     sx={(theme) => {
@@ -13,5 +13,7 @@ export const StyledButton = (props: ButtonProps) => (
         borderRadius: 10,
       };
     }}
-  >{props.children}</Button>
+  >
+    {props.children}
+  </Button>
 );
