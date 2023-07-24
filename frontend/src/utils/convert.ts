@@ -32,8 +32,15 @@ export const convertTimeIntToTimeStringForCopy = (timeInt: number) => {
   if (timeInt < 0) return String(timeInt);
   const seconds = timeInt / 1000;
   const formattedSeconds = Math.round(seconds * 100) / 100;
-  const s = String(formattedSeconds).split(".")[0].padStart(2, "0");
-  const ms = String(formattedSeconds).split(".")[1].padEnd(2, "0");
+
+  let s = "";
+  let ms = "00";
+  if (Number.isInteger(formattedSeconds)) {
+    s = String(formattedSeconds);
+  } else {
+    s = String(formattedSeconds).split(".")[0];
+    ms = String(formattedSeconds).split(".")[1].padEnd(2, "0");
+  }
   return `${s}.${ms}`;
 };
 

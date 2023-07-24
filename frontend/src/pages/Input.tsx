@@ -274,13 +274,12 @@ const Input = () => {
     const negativeRecord = record.filter((rec) => rec.average < 0);
     negativeRecord.sort((a, b) => b.average - a.average);
     sortedRecord = [...sortedRecord, ...negativeRecord];
-    const row = sortedRecord.map((rec, index) => {
+    const row = sortedRecord.map((rec) => {
       const dataList = [];
       dataList.push(inputCompId);
       dataList.push(selectEvent);
       dataList.push(rec.id);
       dataList.push(selectRound);
-      dataList.push(index + 1);
       dataList.push(convertTimeIntToTimeStringForCopy(rec.best));
       dataList.push(convertTimeIntToTimeStringForCopy(rec.average));
       dataList.push(convertTimeIntToTimeStringForCopy(rec.first));
@@ -380,6 +379,7 @@ const Input = () => {
             <Grid xs={1}>
               <TextField
                 autoFocus
+                autoComplete="off"
                 variant="outlined"
                 label="SCJ ID"
                 InputLabelProps={{
@@ -393,6 +393,7 @@ const Input = () => {
             </Grid>
             <Grid xs={2}>
               <TextField
+                autoComplete="off"
                 variant="outlined"
                 label="1st"
                 InputLabelProps={{
@@ -406,6 +407,7 @@ const Input = () => {
             </Grid>
             <Grid xs={2}>
               <TextField
+                autoComplete="off"
                 variant="outlined"
                 label="2nd"
                 InputLabelProps={{
@@ -419,6 +421,7 @@ const Input = () => {
             </Grid>
             <Grid xs={2}>
               <TextField
+                autoComplete="off"
                 variant="outlined"
                 label="3rd"
                 InputLabelProps={{
@@ -432,6 +435,7 @@ const Input = () => {
             </Grid>
             <Grid xs={2}>
               <TextField
+                autoComplete="off"
                 variant="outlined"
                 label="4th"
                 InputLabelProps={{
@@ -445,6 +449,7 @@ const Input = () => {
             </Grid>
             <Grid xs={2}>
               <TextField
+                autoComplete="off"
                 variant="outlined"
                 label="5th"
                 InputLabelProps={{
