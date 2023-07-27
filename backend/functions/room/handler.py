@@ -27,7 +27,7 @@ def room_create(event, _):
     table = dynamodb.Table(os.environ["room_table_name"])
     now_dt = datetime.datetime.now()
     id = int(datetime.datetime.timestamp(now_dt))
-    ttl = int(datetime.datetime.timestamp(now_dt + datetime.timedelta(hours=1)))
+    ttl = int(datetime.datetime.timestamp(now_dt + datetime.timedelta(days=1)))
     param = {"room_id": id, "room_name": room_name, "ttl": ttl}
     table.put_item(Item=param)
     return create_response(200, param)

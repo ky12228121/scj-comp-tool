@@ -27,7 +27,7 @@ def input_register(event, _):
     input_table = dynamodb.Table(os.environ["input_table_name"])
     session_table = dynamodb.Table(os.environ["session_table_name"])
     now_dt = datetime.datetime.now()
-    ttl = int(datetime.datetime.timestamp(now_dt + datetime.timedelta(hours=1)))
+    ttl = int(datetime.datetime.timestamp(now_dt + datetime.timedelta(days=1)))
     param = {**fload_to_decimal(body), "ttl": ttl}
     input_table.put_item(Item=param)
     apigw = get_apigw_management_client()
@@ -45,7 +45,6 @@ def input_register(event, _):
 
 
 def input_delete(event, _):
-
     query_parameter = event["queryStringParameters"]
     if query_parameter is None:
         return create_response(400, "Query parameter is required")

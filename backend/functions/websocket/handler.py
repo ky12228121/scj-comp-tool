@@ -18,9 +18,13 @@ def connect(event, _):
         return create_response(400, "room_id is required")
     table = dynamodb.Table(os.environ["session_table_name"])
     now_dt = datetime.datetime.now()
-    ttl = int(datetime.datetime.timestamp(now_dt + datetime.timedelta(hours=1)))
-    
-    param = {"room_id": int(room_id), "session_id": event["requestContext"]["connectionId"], "ttl": ttl}
+    ttl = int(datetime.datetime.timestamp(now_dt + datetime.timedelta(days=1)))
+
+    param = {
+        "room_id": int(room_id),
+        "session_id": event["requestContext"]["connectionId"],
+        "ttl": ttl,
+    }
     table.put_item(Item=param)
     return create_response(200, "Connection success!")
 
@@ -34,7 +38,9 @@ def disconnect(event, _):
     table = dynamodb.Table(os.environ["session_table_name"])
     request_id = event["requestContext"]["connectionId"]
     session_list = table.scan()["Items"]
-    room_id = [session for session in session_list if session["session_id"] == request_id][0]["room_id"]
+    room_id = [
+        session for session in session_list if session["session_id"] == request_id
+    ][0]["room_id"]
     param = {"room_id": room_id, "session_id": request_id}
     table.delete_item(Key=param)
     return create_response(200, "Disconnection success!")
